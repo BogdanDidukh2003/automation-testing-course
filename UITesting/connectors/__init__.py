@@ -1,10 +1,14 @@
 from enum import Enum
+from typing import Tuple
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.remote.webelement import WebElement
 
 from drivers import Drivers
+
+LocatorType = Tuple[By, str]
 
 
 class Singleton(type):
@@ -21,13 +25,17 @@ class SeleniumConnector(metaclass=Singleton):
         self.driver: WebDriver = None
 
     @property
-    def url(self):
+    def url(self) -> str:
         return self.driver.current_url
 
     def navigate_url(self, site_url: str):
         self.driver.get(site_url)
 
-    def find_element_by_css_id(self, element_id: str):
+    def find_element_by_locator(self, locator: LocatorType) -> WebElement:
+        locator_strategy, locator_name = locator
+        return self.driver.find_element(locator_strategy, locator_name)
+
+    def find_element_by_css_id(self, element_id: str) -> WebElement:
         return self.driver.find_element(By.ID, element_id)
 
     def close(self):
@@ -48,7 +56,7 @@ class EdgeConnector(SeleniumConnector):
 
 class ConnectorFactory:
     @staticmethod
-    def get_connector(driver: Enum):
+    def get_connector(driver: Enum) -> SeleniumConnector:
         if driver == Drivers.CHROME:
             return ChromeConnector()
         elif driver == Drivers.EDGE:
