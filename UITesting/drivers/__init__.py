@@ -2,7 +2,7 @@ from enum import Enum
 import os
 
 
-def _get_absolute_path(filename: str):
+def _get_absolute_path(filename: str) -> str:
     return os.path.join(os.path.dirname(__file__), filename)
 
 

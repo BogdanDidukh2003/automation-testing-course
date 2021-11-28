@@ -7,7 +7,7 @@ from utils import get_text_from_input_field
 
 
 @pytest.fixture(scope="class")
-def connector():
+def connector() -> SeleniumConnector:
     """Return connector to a wrapper for Selenium driver."""
     sc = ConnectorFactory.get_connector(driver=Drivers.EDGE)
     sc.configure()
@@ -16,19 +16,19 @@ def connector():
 
 
 @pytest.fixture()
-def homepage(connector):
+def homepage(connector) -> LinkedinHomePage:
     page = LinkedinHomePage(connector=connector)
     yield page
 
 
 @pytest.fixture()
-def sign_in_page(connector):
+def sign_in_page(connector) -> LinkedinSignInPage:
     page = LinkedinSignInPage(connector=connector)
     yield page
 
 
 @pytest.fixture()
-def sign_up_page(connector):
+def sign_up_page(connector) -> LinkedinSignUpPage:
     page = LinkedinSignUpPage(connector=connector)
     yield page
 

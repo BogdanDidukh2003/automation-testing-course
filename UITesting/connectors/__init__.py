@@ -29,12 +29,12 @@ class SeleniumConnector(metaclass=SingletonMeta):
     def url(self) -> str:
         return self.driver.current_url
 
-    def configure(self, waiting_time: int = 1, height: int = 1024, width: int = 768):
+    def configure(self, waiting_time: int = 1, height: int = 1024, width: int = 768) -> None:
         self.driver.set_window_size(height=height, width=width)
         self.driver.implicitly_wait(waiting_time)
         self.driver.switch_to.default_content()
 
-    def navigate_url(self, site_url: str):
+    def navigate_url(self, site_url: str) -> None:
         self.driver.get(site_url)
 
     def check_if_element_exists(self, locator: LocatorType) -> bool:
@@ -48,7 +48,7 @@ class SeleniumConnector(metaclass=SingletonMeta):
         locator_strategy, locator_name = locator
         return self.driver.find_element(locator_strategy, locator_name)
 
-    def close(self):
+    def close(self) -> None:
         self.driver.close()
 
 
