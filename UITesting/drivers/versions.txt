@@ -1,0 +1,2 @@
+chromedriver: Chrome version 96
+msedgedriver: MS Edge version 96
