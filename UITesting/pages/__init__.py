@@ -16,13 +16,17 @@ class LinkedinHomePage(BasePage):
         "body > nav > div > a.nav__button-secondary",
     )
 
+    def get_sign_in_button(self):
+        sing_in_button = self.connector.find_element_by_locator(
+            self.SIGN_IN_BUTTON_LOCATOR,
+        )
+        return sing_in_button
+
     def load(self):
         self.connector.navigate_url(self.URL)
 
     def click_sign_in_button(self):
-        sing_in_button = self.connector.find_element_by_locator(
-            self.SIGN_IN_BUTTON_LOCATOR,
-        )
+        sing_in_button = self.get_sign_in_button()
 
         click_button(sing_in_button)
 
@@ -50,20 +54,46 @@ class LinkedinSignInPage(BasePage):
         "#error-for-username",
     )
 
+    def get_join_now_button(self):
+        join_now_button = self.connector.find_element_by_locator(
+            self.JOIN_NOW_BUTTON_LOCATOR,
+        )
+        return join_now_button
+
+    def get_email_input_field(self):
+        input_field = self.connector.find_element_by_locator(
+            self.EMAIL_INPUT_LOCATOR,
+        )
+        return input_field
+
+    def get_password_input_field(self):
+        input_field = self.connector.find_element_by_locator(
+            self.PASSWORD_INPUT_LOCATOR,
+        )
+        return input_field
+
+    def get_sign_in_button(self):
+        sign_in_button = self.connector.find_element_by_locator(
+            self.SIGN_IN_BUTTON_LOCATOR,
+        )
+        return sign_in_button
+
+    def get_sign_in_email_error_container(self):
+        sign_in_email_error = self.connector.find_element_by_locator(
+            self.SIGN_IN_EMAIL_ERROR_LOCATOR,
+        )
+        return sign_in_email_error
+
     def load(self):
         self.connector.navigate_url(self.URL)
 
     def click_join_now_button(self):
-        join_now_button = self.connector.find_element_by_locator(
-            self.JOIN_NOW_BUTTON_LOCATOR,
-        )
+        join_now_button = self.get_join_now_button()
 
         click_button(join_now_button)
 
     def enter_email(self, email: str):
-        input_field = self.connector.find_element_by_locator(
-            self.EMAIL_INPUT_LOCATOR,
-        )
+        input_field = self.get_email_input_field()
 
         enter_text_in_input_field(
             input_field=input_field,
@@ -71,9 +101,7 @@ class LinkedinSignInPage(BasePage):
         )
 
     def enter_password(self, password: str):
-        input_field = self.connector.find_element_by_locator(
-            self.PASSWORD_INPUT_LOCATOR,
-        )
+        input_field = self.get_password_input_field()
 
         enter_text_in_input_field(
             input_field=input_field,
@@ -81,16 +109,12 @@ class LinkedinSignInPage(BasePage):
         )
 
     def click_sign_in_button(self):
-        sign_in_button = self.connector.find_element_by_locator(
-            self.SIGN_IN_BUTTON_LOCATOR,
-        )
+        sign_in_button = self.get_sign_in_button()
 
         click_button(sign_in_button)
 
-    def check_sign_in_email_error(self):
-        sign_in_email_error = self.connector.find_element_by_locator(
-            self.SIGN_IN_EMAIL_ERROR_LOCATOR,
-        )
+    def check_sign_in_email_error(self) -> str:
+        sign_in_email_error = self.get_sign_in_email_error_container()
 
         error = get_text_from_element(sign_in_email_error)
         return error
@@ -123,10 +147,44 @@ class LinkedinSignUpPage(BasePage):
         "#join-form-submit",
     )
 
-    def enter_email(self, email: str):
+    def get_email_input_field(self):
         input_field = self.connector.find_element_by_locator(
             self.EMAIL_INPUT_LOCATOR,
         )
+        return input_field
+
+    def get_password_input_field(self):
+        input_field = self.connector.find_element_by_locator(
+            self.PASSWORD_INPUT_LOCATOR,
+        )
+        return input_field
+
+    def get_join_button(self):
+        join_button = self.connector.find_element_by_locator(
+            self.JOIN_BUTTON_LOCATOR,
+        )
+        return join_button
+
+    def get_first_name_input_field(self):
+        input_field = self.connector.find_element_by_locator(
+            self.FIRST_NAME_INPUT_LOCATOR,
+        )
+        return input_field
+
+    def get_last_name_input_field(self):
+        input_field = self.connector.find_element_by_locator(
+            self.LAST_NAME_INPUT_LOCATOR,
+        )
+        return input_field
+
+    def get_continue_button(self):
+        continue_button = self.connector.find_element_by_locator(
+            self.CONTINUE_BUTTON_LOCATOR,
+        )
+        return continue_button
+
+    def enter_email(self, email: str):
+        input_field = self.get_email_input_field()
 
         enter_text_in_input_field(
             input_field=input_field,
@@ -134,9 +192,7 @@ class LinkedinSignUpPage(BasePage):
         )
 
     def enter_password(self, password: str):
-        input_field = self.connector.find_element_by_locator(
-            self.PASSWORD_INPUT_LOCATOR,
-        )
+        input_field = self.get_password_input_field()
 
         enter_text_in_input_field(
             input_field=input_field,
@@ -144,16 +200,12 @@ class LinkedinSignUpPage(BasePage):
         )
 
     def click_join_button(self):
-        join_button = self.connector.find_element_by_locator(
-            self.JOIN_BUTTON_LOCATOR,
-        )
+        join_button = self.get_join_button()
 
         click_button(join_button)
 
     def enter_first_name(self, first_name: str):
-        input_field = self.connector.find_element_by_locator(
-            self.FIRST_NAME_INPUT_LOCATOR,
-        )
+        input_field = self.get_first_name_input_field()
 
         enter_text_in_input_field(
             input_field=input_field,
@@ -161,9 +213,7 @@ class LinkedinSignUpPage(BasePage):
         )
 
     def enter_last_name(self, last_name: str):
-        input_field = self.connector.find_element_by_locator(
-            self.LAST_NAME_INPUT_LOCATOR,
-        )
+        input_field = self.get_last_name_input_field()
 
         enter_text_in_input_field(
             input_field=input_field,
@@ -171,8 +221,6 @@ class LinkedinSignUpPage(BasePage):
         )
 
     def click_continue_button(self):
-        continue_button = self.connector.find_element_by_locator(
-            self.CONTINUE_BUTTON_LOCATOR,
-        )
+        continue_button = self.get_continue_button()
 
         click_button(continue_button)
